@@ -18,7 +18,7 @@ public class Solution {
     		currentPos.put(q[i],i+1);
     		initalArr.add(i+1);
     	}
-    	for(int i = 1; i <= q.length; i++) {
+    	/*for(int i = 1; i <= q.length; i++) {
     		int pos = currentPos.get(i);
     		int change = i - pos;
     		if(change > 0) {
@@ -29,15 +29,23 @@ public class Solution {
         			bribes+= change;
         		}
     		}
-    	}
+    	}*/
     	
     	for(int i = 1; i <= q.length; i++) {
     		int pos = currentPos.get(i);
+    		int localbribes = 0;
     		while(initalArr.get(pos) != i) {
     			int sendBack = initalArr.get(i - 1); 
     			initalArr.set(i - 1, initalArr.get(i));
     			initalArr.set(i, sendBack);
+    			if(localbribes > 2) {
+    				return;
+    			}else {
+    				localbribes++;
+    			}
     		}
+    		bribes = bribes + localbribes;
+    		System.out.println("arrangement after bribes: "+ initalArr.toArray().toString());
     	}
     	System.out.println(bribes);
     }
